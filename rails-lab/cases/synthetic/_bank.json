@@ -4006,19 +4006,19 @@
   },
   {
    "v": 22,
-   "seed": 201022,
+   "seed": 1401022,
    "params": {
     "cap_old": 5,
-    "cap_new": 3,
-    "floor_old": 4,
-    "floor_new": 3,
+    "cap_new": 4,
+    "floor_old": 12,
+    "floor_new": 8,
     "expiry": 2,
-    "ma": 12,
-    "closes": 2,
-    "weight": "a quarter",
+    "ma": 20,
+    "closes": 3,
+    "weight": "half",
     "inputs": [
      "RSI",
-     "MFI"
+     "OBV"
     ],
     "states": [
      "building",
@@ -4040,7 +4040,7 @@
      "f02",
      "DAVID",
      "2026-09-10",
-     "SIG_X scores from 0 to 3 per direction per band",
+     "SIG_X scores from 0 to 4 per direction per band",
      "CURRENT",
      "rule"
     ],
@@ -4048,7 +4048,7 @@
      "f03",
      "DAVID",
      "2026-09-11",
-     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
      "CURRENT",
      "input"
     ],
@@ -4056,7 +4056,7 @@
      "f04",
      "DAVID",
      "2026-09-11",
-     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
      "CURRENT",
      "rule"
     ],
@@ -4064,7 +4064,7 @@
      "f05",
      "DAVID",
      "2026-09-12",
-     "the floor for SIG_X is the 4 hour interval",
+     "the floor for SIG_X is the 12 hour interval",
      "SUPERSEDED",
      "parameter"
     ],
@@ -4072,7 +4072,7 @@
      "f06",
      "DAVID",
      "2026-09-20",
-     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
      "CURRENT",
      "parameter"
     ],
@@ -4104,7 +4104,7 @@
      "f10",
      "DAVID",
      "2026-09-14",
-     "it goes from active to fading after 2 closes below the 12 MA",
+     "it goes from active to fading after 3 closes below the 20 MA",
      "CURRENT",
      "transition"
     ],
@@ -4112,7 +4112,7 @@
      "f11",
      "DAVID",
      "2026-09-15",
-     "SIG_X feeds into Phi at a quarter weight",
+     "SIG_X feeds into Phi at half weight",
      "CURRENT",
      "interface"
     ],
@@ -4136,7 +4136,7 @@
      "f14",
      "DAVID",
      "2026-09-22",
-     "no, SIG_X is capped at 3, that is final",
+     "no, SIG_X is capped at 4, that is final",
      "CURRENT",
      "rule"
     ],
@@ -4144,7 +4144,7 @@
      "f15",
      "DAVID",
      "2026-09-17",
-     "I write it as PX_B2(3H,M), bull, score 2, on the 3 hour, from the MFI",
+     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
      "CURRENT",
      "notation"
     ],
@@ -4176,7 +4176,7 @@
      "t02",
      "ARIS-LEAD",
      "2026-09-21",
-     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+     "You said SIG_X needs 4 closes below the 20 MA before it moves on"
     ],
     [
      "t03",
@@ -4734,25 +4734,25 @@
   },
   {
    "v": 26,
-   "seed": 3101026,
+   "seed": 6001026,
    "params": {
-    "cap_old": 6,
-    "cap_new": 4,
-    "floor_old": 12,
-    "floor_new": 8,
-    "expiry": 1,
-    "ma": 20,
-    "closes": 2,
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 2,
+    "ma": 12,
+    "closes": 3,
     "weight": "a quarter",
     "inputs": [
      "RSI",
      "OBV"
     ],
     "states": [
-     "forming",
-     "live",
-     "weakening",
-     "off"
+     "building",
+     "active",
+     "fading",
+     "dead"
     ]
    },
    "bank": [
@@ -4768,7 +4768,7 @@
      "f02",
      "DAVID",
      "2026-09-10",
-     "SIG_X scores from 0 to 4 per direction per band",
+     "SIG_X scores from 0 to 3 per direction per band",
      "CURRENT",
      "rule"
     ],
@@ -4792,7 +4792,7 @@
      "f05",
      "DAVID",
      "2026-09-12",
-     "the floor for SIG_X is the 12 hour interval",
+     "the floor for SIG_X is the 8 hour interval",
      "SUPERSEDED",
      "parameter"
     ],
@@ -4800,7 +4800,7 @@
      "f06",
      "DAVID",
      "2026-09-20",
-     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
      "CURRENT",
      "parameter"
     ],
@@ -4808,7 +4808,7 @@
      "f07",
      "DAVID",
      "2026-09-25",
-     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
      "CURRENT",
      "expiry"
     ],
@@ -4824,7 +4824,7 @@
      "f09",
      "DAVID",
      "2026-09-14",
-     "SIG_X has four states: forming, live, weakening and off",
+     "SIG_X has four states: building, active, fading and dead",
      "CURRENT",
      "state"
     ],
@@ -4832,7 +4832,7 @@
      "f10",
      "DAVID",
      "2026-09-14",
-     "it goes from live to weakening after 2 closes below the 20 MA",
+     "it goes from active to fading after 3 closes below the 12 MA",
      "CURRENT",
      "transition"
     ],
@@ -4856,7 +4856,7 @@
      "f13",
      "DAVID",
      "2026-09-16",
-     "SIG_X is capped at 6",
+     "SIG_X is capped at 5",
      "SUPERSEDED",
      "rule"
     ],
@@ -4864,7 +4864,7 @@
      "f14",
      "DAVID",
      "2026-09-22",
-     "no, SIG_X is capped at 4, that is final",
+     "no, SIG_X is capped at 3, that is final",
      "CURRENT",
      "rule"
     ],
@@ -4872,7 +4872,7 @@
      "f15",
      "DAVID",
      "2026-09-17",
-     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "I write it as PX_B2(6H,O), bull, score 2, on the 6 hour, from the OBV",
      "CURRENT",
      "notation"
     ],
@@ -4898,13 +4898,13 @@
      "t01",
      "ARIS-LEAD",
      "2026-09-16",
-     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
     ],
     [
      "t02",
      "ARIS-LEAD",
      "2026-09-21",
-     "You said SIG_X needs 3 closes below the 20 MA before it moves on"
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
     ],
     [
      "t03",
@@ -5280,18 +5280,18 @@
   },
   {
    "v": 29,
-   "seed": 5001029,
+   "seed": 1901029,
    "params": {
     "cap_old": 5,
     "cap_new": 4,
-    "floor_old": 12,
-    "floor_new": 8,
-    "expiry": 2,
-    "ma": 20,
-    "closes": 3,
-    "weight": "double",
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 3,
+    "ma": 12,
+    "closes": 2,
+    "weight": "a quarter",
     "inputs": [
-     "Stoch RSI",
+     "RSI",
      "OBV"
     ],
     "states": [
@@ -5322,7 +5322,7 @@
      "f03",
      "DAVID",
      "2026-09-11",
-     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
      "CURRENT",
      "input"
     ],
@@ -5338,7 +5338,7 @@
      "f05",
      "DAVID",
      "2026-09-12",
-     "the floor for SIG_X is the 12 hour interval",
+     "the floor for SIG_X is the 4 hour interval",
      "SUPERSEDED",
      "parameter"
     ],
@@ -5346,7 +5346,7 @@
      "f06",
      "DAVID",
      "2026-09-20",
-     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
      "CURRENT",
      "parameter"
     ],
@@ -5354,7 +5354,7 @@
      "f07",
      "DAVID",
      "2026-09-25",
-     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
      "CURRENT",
      "expiry"
     ],
@@ -5378,7 +5378,7 @@
      "f10",
      "DAVID",
      "2026-09-14",
-     "it goes from active to fading after 3 closes below the 20 MA",
+     "it goes from active to fading after 2 closes below the 12 MA",
      "CURRENT",
      "transition"
     ],
@@ -5386,7 +5386,7 @@
      "f11",
      "DAVID",
      "2026-09-15",
-     "SIG_X feeds into Phi at double weight",
+     "SIG_X feeds into Phi at a quarter weight",
      "CURRENT",
      "interface"
     ],
@@ -5418,7 +5418,7 @@
      "f15",
      "DAVID",
      "2026-09-17",
-     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "I write it as PX_B2(3H,O), bull, score 2, on the 3 hour, from the OBV",
      "CURRENT",
      "notation"
     ],
@@ -5450,7 +5450,7 @@
      "t02",
      "ARIS-LEAD",
      "2026-09-21",
-     "You said SIG_X needs 4 closes below the 20 MA before it moves on"
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
     ],
     [
      "t03",

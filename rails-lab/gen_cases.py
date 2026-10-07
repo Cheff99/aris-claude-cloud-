@@ -16,7 +16,27 @@ CASES_PER_ROLE = {r: 30 if r in (9, 10, 11, 12, 13, 14, 15, 16, 21, 23) else 6 f
 N_VARIANTS = max(CASES_PER_ROLE.values())   # variant v feeds only the roles with more than v cases
 # a new variant whose answer repeats an earlier case of one of these roles is re-drawn. Roles 10, 16 and 23 are left out:
 # their answers barely depend on the drawn values (3, 2 and 1 possible answers), so re-drawing cannot make them unique.
-UNIQUE_ROLES = (9, 11, 12, 13, 14, 15, 21)
+UNIQUE_ROLES = (9, 10, 11, 12, 13, 14, 15, 16, 21, 23)
+N_ORIGINAL = 6   # variants 0-5 are the original cases and stay as they were (roles 10, 16 and 23 repeat answers among them)
+
+# Roles 10, 16 and 23 barely depend on the drawn values, so from variant 6 on each case also draws two statements of its own,
+# inserted into its text: exceptions for role 10, and statements that leave something undefined (gaps) for roles 16 and 23.
+# Each entry is (statement, gap, gap tokens, options for {x}, options for {y}).
+EXCEPTIONS = [("SIG_X is halved unless funding is above {x} percent", None, None, ['0.05', '0.1', '0.2', '0.3'], None),
+              ("SIG_X is not scored on {x}s, except after a {y} percent gap", None, None, ['Saturday', 'Sunday'], ['2', '3', '5']),
+              ("SIG_X only counts when the {x} candle has closed", None, None, ['1 hour', '4 hour', '12 hour'], None),
+              ("override: if Phi is below {x}, SIG_X is ignored", None, None, ['10', '20', '30'], None),
+              ("no matter what the bands say, SIG_X is 0 for {x} hours after a liquidation cascade", None, None, ['2', '4', '6'], None),
+              ("except during {x}, SIG_X keeps its last reading", None, None, ['the Asian session', 'the funding window', 'exchange maintenance'], None),
+              ("ignore SIG_X when volume is under {x} percent of the {y} day average", None, None, ['40', '50', '60'], ['7', '14', '30'])]
+GAPS = [("in {x} mode SIG_X reads the bands differently", "what {x} mode changes is never stated", ['{x}', 'mode'], ['turbo', 'quiet', 'sweep', 'night'], None),
+        ("SIG_X uses the lookback window from the {x} template", "how long the lookback window is is never stated", ['lookback'], ['old', 'shared', 'backup'], None),
+        ("when the {x} filter is on, some SIG_X bands are skipped", "which bands the {x} filter skips is never stated", ['{x}', 'filter'], ['volatility', 'session', 'spread'], None),
+        ("SIG_X gets a bonus point on a clean {x}", "what counts as a clean {x} is never stated", ['{x}'], ['retest', 'sweep', 'squeeze', 'reclaim'], None),
+        ("SIG_X resets at the {x} rollover", "what SIG_X resets to at the {x} rollover is never stated", ['{x}', 'rollover'], ['weekly', 'monthly', 'quarterly'], None),
+        ("SIG_X sends an alert once it passes the {x} threshold", "the value of the {x} threshold is never stated", ['{x}', 'threshold'], ['alert', 'warning', 'trigger'], None),
+        ("a divergence on the {x} counts double for SIG_X", "what counts as a divergence on the {x} is never stated", ['divergence', '{x}'], ['RSI', 'MFI', 'OBV', 'CVD'], None),
+        ("SIG_X is paused during {x}", "how long SIG_X stays paused during {x} is never stated", ['{x}'], ['news events', 'low liquidity', 'exchange maintenance'], None)]
 
 # ---------- fully synthetic filler: trading-desk chatter with no module vocabulary ----------
 FILL_A = ["Morning, quick one before the call.", "Charts are loading slowly again today.", "I moved the screenshots into the weekly folder.",
@@ -83,6 +103,24 @@ def make_variant(v, attempt=0):
     p = dict(cap_old=cap_old, cap_new=cap_new, floor_old=floor_old, floor_new=floor_new, expiry=expiry, ma=ma, closes=closes,
              weight=weight, inputs=inputs, states=states)
     return {'v': v, 'seed': seed, 'params': p, 'bank': bank, 'traps': traps}
+
+
+def draw(rng, pool, n=2):
+    """n different templates from pool, each with its own drawn values: [(statement, gap fact or None)]"""
+    out = []
+    for stmt, gap, tokens, xs, ys in rng.sample(pool, n):
+        fill = dict(x=rng.choice(xs), y=rng.choice(ys) if ys else '')
+        fact = {'prop': gap.format(**fill), 'tokens': [w for t in tokens for w in t.format(**fill).lower().split()]} if gap else None
+        out.append((stmt.format(**fill), fact))
+    return out
+
+
+def with_statements(rng, facts, stmts):
+    """the findings text with extra David statements inserted at random places"""
+    lines = [line(f) for f in facts]
+    for i, st in enumerate(stmts):
+        lines.insert(rng.randint(0, len(lines)), line((f"x{i}", 'DAVID', f"2026-09-{rng.randint(10, 25):02d}", st)))
+    return '\n'.join(lines)
 
 
 HDR = {'DAVID': 'David', 'ARIS-LEAD': 'Aris', '3RD': 'Rohit (forwarded)'}
@@ -176,8 +214,11 @@ def main():
         cases[9].append({'case_id': cid(9), 'role': 9, 'input': {'text': findings, 'answer_format': 'list of {"quotes": [a, b], "governs": <quote>}'},
                          'truth': {'conflicts': conf}})
         # 10 exceptions / overrides
-        cases[10].append({'case_id': cid(10), 'role': 10, 'input': {'text': findings, 'definition': 'statements that cancel or override a rule (unless / except / no matter what / ignore)'},
-                          'truth': {'items': [B[7][3], B[6][3]], 'also_ok': [B[11][3]]}})
+        xr = random.Random(f"{V['seed']}-extra")   # own stream, so the draws above are unchanged
+        ex = [st for st, _ in draw(xr, EXCEPTIONS)] if v >= N_ORIGINAL else []
+        cases[10].append({'case_id': cid(10), 'role': 10, 'input': {'text': with_statements(xr, allf, ex) if ex else findings,
+                          'definition': 'statements that cancel or override a rule (unless / except / no matter what / ignore)'},
+                          'truth': {'items': [B[7][3], B[6][3]] + ex, 'also_ok': [B[11][3]]}})
         # 11-15 defining: full propositions with required tokens; forbidden = superseded values and trap claims
         forb = [{'claim': f"capped at {P['cap_old']}", 'tokens': T('capped', P['cap_old'])}, {'claim': f"{P['floor_old']} hour floor", 'tokens': T(P['floor_old'], 'hour', 'floor')},
                 {'claim': 'uses the MACD', 'tokens': T('macd')}, {'claim': f"{P['closes'] + 1} closes", 'tokens': T(P['closes'] + 1, 'closes')}]
@@ -204,7 +245,12 @@ def main():
                 {'prop': 'how quality 1 differs from quality 2 is never stated', 'tokens': T('quality', 1, 2)}]
         extra = [{'prop': f"what moves SIG_X from {P['states'][0]} to {P['states'][1]}", 'tokens': T(P['states'][0])},
                  {'prop': f"what moves it from {P['states'][2]} to {P['states'][3]}", 'tokens': T(P['states'][3])}]
-        cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': findings}, 'truth': {'facts': gaps, 'also_ok_facts': extra}})
+        if v < N_ORIGINAL:
+            cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': findings}, 'truth': {'facts': gaps, 'also_ok_facts': extra}})
+        else:  # the drawn gaps are required; the original gaps are still real gaps, so they count as extras
+            dg = draw(xr, GAPS)
+            cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in dg])},
+                              'truth': {'facts': [g for _, g in dg], 'also_ok_facts': gaps + extra}})
         # 17 search planner: judged by the council (searches must go beyond echoing the gap)
         cases[17].append({'case_id': cid(17), 'role': 17, 'input': {'gaps': [x['prop'] for x in gaps]},
                           'truth': {'facts': [{'prop': 'searches for the daily timeframe using other words (1D, day chart, daily close)', 'tokens': T('1d')},
@@ -237,8 +283,10 @@ def main():
         cases[22].append({'case_id': cid(22), 'role': 22, 'input': {'findings': findings, 'rules': rules + ["SIG_X uses a 14 period RSI."]},
                           'truth': {'flag': ["SIG_X uses a 14 period RSI."]}})
         # 23 question writer: must ask the open issues; must NOT re-ask settled points
-        cases[23].append({'case_id': cid(23), 'role': 23, 'input': {'module': 'SIG_X', 'text': findings, 'settled': [B[13][3], B[5][3]]},
-                          'truth': {'facts': gaps, 'headline': gaps[0]['prop'],
+        qg = draw(xr, GAPS) if v >= N_ORIGINAL else []   # drawn apart from role 16's, so the two roles do not share topics
+        cases[23].append({'case_id': cid(23), 'role': 23, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in qg]) if qg else findings,
+                          'settled': [B[13][3], B[5][3]]},
+                          'truth': {'facts': [g for _, g in qg] or gaps, 'headline': (qg[0][1] if qg else gaps[0])['prop'],
                                     'forbidden': [{'claim': 're-asks the cap', 'tokens': T('cap')}, {'claim': 're-asks the floor', 'tokens': T('floor')}]}})
         # 24 question critic (multi-label truth allowed)
         qs = {'c0': (f"You said on 22 Sep that SIG_X is capped at {P['cap_new']}. Should the cap be {P['cap_new']} or {P['cap_old']}?", ['REASKS_SETTLED']),
@@ -262,7 +310,7 @@ def main():
             V = make_variant(v, attempt)
             built = build(V)
             keys = {r: json.dumps(built[r]['truth'], sort_keys=True) for r in UNIQUE_ROLES if v < CASES_PER_ROLE[r]}
-            if all(k not in seen[r] for r, k in keys.items()):
+            if v < N_ORIGINAL or all(k not in seen[r] for r, k in keys.items()):
                 break
         else:
             raise SystemExit(f'variant {v}: no draw with unique answers after 1000 attempts')
