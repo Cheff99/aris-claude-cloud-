@@ -8,6 +8,8 @@ Every role in the mining pipeline (rails.json) is a rail; every step of every ru
                      [--resume RID] [--workers 4]
   python3 lab.py summary [RID] [--include-mock]  per role x model: coverage, failures, scores (+95% CI), cost, latency
   python3 lab.py rejudge RID --council or:a,..   council-judge saved outputs again (refuses if cases changed)
+  python3 lab.py rescore RID --roles 23           score saved outputs again with the current scorer and cases (no calls)
+  summary and combos take RID1,RID2,..: a case answered in several runs counts once, from the latest run
   python3 lab.py dryrun                           mock model, separate ledger: proves every rail end to end
 Models: mock | plan:<opus|sonnet|haiku|fable> (claude -p --safe-mode: no CLAUDE.md, hooks, skills or user settings, neutral system prompt) | or:<openrouter id> (ZDR only)
 """
@@ -343,6 +345,8 @@ NEG = {'not', 'no', 'never', 'old', 'older', 'replaced', 'replaces', 'superseded
        'was', 'earlier', 'formerly', 'wrong', 'rather', 'contested', 'disputed', 'contradicted', 'contradicts', 'contradiction',
        'conflict', 'conflicts', 'unconfirmed', 'rejected', 'dropped', 'overridden', 'overrides', 'updated', 'changed', 'suggested',
        'proposed', 'claimed', 'paraphrase', 'paraphrased', 'expired', 'obsolete', 'retired', 'ignore', 'ignored', 'vs', 'versus'}
+REASK = {'confirm', 'confirmed', 'revisit', 'reconsider', 'reopen', 'change', 'changed', 'changing', 'still', 'keep', 'correct',
+         'raise', 'lower', 'increase', 'decrease', 'instead', 'adjust', 'update', 'final'}
 SENT = re.compile(r'\n+|(?<=[.!?])\s+')
 QUOTED = re.compile(r'"[^"\n]*"|“[^”\n]*”')
 
@@ -378,6 +382,24 @@ def fact_present(fact, T, window=None, negation_aware=False):
         else:
             if max(span) - min(span) <= window:
                 return True
+    return False
+
+
+def reasks(f, txt):
+    """a settled point is re-asked only by a QUESTION that puts it up for decision: the question names the point and either asks
+    to change / confirm it or offers a value other than the settled one. Mentioning the settled value as context is not a re-ask."""
+    topic = set(f['topic'])
+    for sent in SENT.split(txt or ''):
+        if '?' not in sent:
+            continue
+        t = toks(sent)
+        at = [i for i, w in enumerate(t) if w in topic]
+        if not at:
+            continue
+        if REASK & set(t):
+            return True
+        if any(w.isdigit() and w != f['settled'] and min(abs(i - j) for j in at) <= 4 for i, w in enumerate(t)):
+            return True
     return False
 
 
@@ -447,7 +469,8 @@ def score(rail, case, txt):
         T = toks(txt)
         facts = t.get('facts', [])
         kept = [f['prop'] for f in facts if fact_present(f, T)]
-        forb = [f['claim'] for f in t.get('forbidden', []) if fact_present(f, txt, negation_aware=True)]
+        forb = [f['claim'] for f in t.get('forbidden', [])
+                if (reasks(f, txt) if 'topic' in f else fact_present(f, txt, negation_aware=True))]
         inv = invented_numbers(txt, case)
         res = {'facts_kept': len(kept) / max(len(facts), 1), 'forbidden_present': len(forb), 'invented_numbers': len(inv)}
         if t.get('also_ok_facts'):
@@ -528,7 +551,10 @@ def prompt_for(rail, case):
     for k in ('text', 'findings', 'passage'):
         if k in inp and isinstance(inp[k], str):
             blocks.append(f"=== {k.upper()} START ===\n{inp.pop(k)}\n=== {k.upper()} END ===")
-    fmt = inp.pop('answer_format', None) or rail['out']
+    fmt = inp.pop('answer_format', None)
+    if fmt and rail['scorer'] == 'label_match':   # the case format describes each label; the JSON list around it is still required
+        fmt = f"{rail['out']}, as JSON; write each label as: {fmt}"
+    fmt = fmt or rail['out']
     return (f"ROLE: {rail['name']}\nTASK: {rail['task']}\nOUTPUT: {fmt}. Answer with that and nothing else.\n\n"
             f"CASE DATA (JSON):\n{json.dumps(inp, ensure_ascii=False, indent=1)}\n\n" + '\n\n'.join(blocks))
 
@@ -694,6 +720,24 @@ def ci(vals, n=1000):
     return means[int(0.025 * n)], means[int(0.975 * n)]
 
 
+def pick(evs, rids):
+    """events of these runs. A case answered in several runs counts once, from the run that answered it last, and a re-score
+    inside that run replaces its earlier score."""
+    evs = [e for e in evs if e['run'] in rids]
+    key = lambda e: (e.get('role'), e.get('case'), e.get('model'), e.get('repeat', 0))
+    owner, last = {}, {}
+    for e in evs:
+        if e['stage'] in ('call', 'score'):
+            if e['stage'] == 'call' or key(e) not in owner:
+                owner[key(e)] = e['run']
+    for e in evs:
+        if e['stage'] in ('call', 'score') and e['run'] == owner[key(e)]:
+            last[(e['stage'],) + key(e)] = e
+    keep = set(map(id, last.values()))
+    return [e for e in evs if id(e) in keep or (e['stage'] not in ('call', 'score') and
+                                                 (e.get('role') is None or owner.get(key(e)) == e['run']))]
+
+
 def summary(rid=None, include_mock=False, path=None):
     evs, bad = read_ledger(path)
     starts = [e for e in evs if e['stage'] == 'run-start' and (include_mock or e.get('kind') != 'mock')]
@@ -702,7 +746,7 @@ def summary(rid=None, include_mock=False, path=None):
             print('no runs in ledger')
             return
         rid = starts[-1]['run']
-    evs = [e for e in evs if e['run'] == rid]
+    evs = pick(evs, rid.split(','))
     agg = {}
     for e in evs:
         if e['stage'] not in ('score', 'call', 'empty', 'truncated'):
@@ -779,11 +823,12 @@ def combos(rid, size=2, top=8, path=None):
     """score every pair/triple of models per role from SAVED outputs (no new calls): recall/accuracy and summed cost."""
     import itertools
     evs, _ = read_ledger(path)
-    st = next(e for e in evs if e['run'] == rid and e['stage'] in ('run-start',))
+    rids = rid.split(',')
+    st = next(e for e in evs if e['run'] == rids[0] and e['stage'] in ('run-start',))
     cases = {c['case_id']: c for c in load_cases(st['cases'], list(RAILS))}
     calls = {}
-    for e in evs:
-        if e['run'] == rid and e['stage'] == 'call' and e.get('repeat', 0) == 0:
+    for e in pick(evs, rids):
+        if e['stage'] == 'call' and e.get('repeat', 0) == 0:
             calls.setdefault((e['role'], e['case']), {})[e['model']] = (os.path.join(HERE, e['raw']), e.get('use_usd') or 0)
     roles = sorted({r for r, _ in calls})
     report = []
@@ -819,8 +864,31 @@ def combos(rid, size=2, top=8, path=None):
         if cheapest:
             report.append({'role': role, 'best': res[0][3], 'best_score': round(best, 3), 'cheapest_within_5pct': cheapest[3],
                            'cheapest_score': round(cheapest[0], 3), 'cheapest_cost': round(cheapest[2], 4)})
-    json.dump(report, open(os.path.join(HERE, f'combos-{rid}.json'), 'w'), indent=1)
-    print(f"\nwritten combos-{rid}.json")
+    name = f"combos-{rid.replace(',', '+')}.json"
+    json.dump(report, open(os.path.join(HERE, name), 'w'), indent=1)
+    print(f"\nwritten {name}")
+
+
+def rescore(rid, roles):
+    """score a run's saved outputs again with the current scorer and cases -- no model calls. The new score replaces the old
+    one in summary and combos; the old one stays in the ledger."""
+    evs, _ = read_ledger()
+    st = next((e for e in evs if e['run'] == rid and e['stage'] == 'run-start'), None)
+    if not st:
+        sys.exit('no such run')
+    cases = {c['case_id']: c for c in load_cases(st['cases'], roles)}
+    ledger(rid, 'rescore-start', roles=roles, lab_hash=h(open(__file__, encoding='utf-8').read()), case_hashes=case_hashes(st['cases']))
+    n = 0
+    for e in evs:
+        if e['run'] == rid and e['stage'] == 'call' and e['role'] in roles and not cases[e['case']]['truth'].get('council_only'):
+            txt = open(os.path.join(HERE, e['raw']), encoding='utf-8').read()
+            sc, det = score(RAILS[e['role']], cases[e['case']], txt)
+            kw = dict(role=e['role'], case=e['case'], model=e['model'], repeat=e.get('repeat', 0), rescored=True)
+            ledger(rid, 'items', detail=det, **kw)
+            ledger(rid, 'score', failed=False, **kw, **sc)
+            n += 1
+    ledger(rid, 'rescore-end', scored=n)
+    print(f'rescored {n} saved outputs')
 
 
 def dryrun():
@@ -862,6 +930,7 @@ if __name__ == '__main__':
     p = sp.add_parser('preflight'); p.add_argument('--models', required=True); p.add_argument('--cases', default='synthetic')
     p = sp.add_parser('rejudge'); p.add_argument('rid'); p.add_argument('--council', required=True)
     p = sp.add_parser('combos'); p.add_argument('rid'); p.add_argument('--size', type=int, default=2); p.add_argument('--top', type=int, default=8)
+    p = sp.add_parser('rescore'); p.add_argument('rid'); p.add_argument('--roles', required=True)
     sp.add_parser('dryrun')
     a = ap.parse_args()
     if a.cmd == 'run':
@@ -875,5 +944,7 @@ if __name__ == '__main__':
         rejudge(a.rid, a.council.split(','))
     elif a.cmd == 'combos':
         combos(a.rid, a.size, a.top)
+    elif a.cmd == 'rescore':
+        rescore(a.rid, [int(x) for x in a.roles.split(',')])
     elif a.cmd == 'dryrun':
         dryrun()

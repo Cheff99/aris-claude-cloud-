@@ -284,7 +284,9 @@ def main():
         cases[23].append({'case_id': cid(23), 'role': 23, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in qg]),
                           'settled': [B[13][3], B[5][3]]},
                           'truth': {'facts': [g for _, g in qg], 'headline': qg[0][1]['prop'],
-                                    'forbidden': [{'claim': 're-asks the cap', 'tokens': T('cap')}, {'claim': 're-asks the floor', 'tokens': T('floor')}]}})
+                                    # re-asked = a question that names the point and asks to change/confirm it or offers another value
+                                    'forbidden': [{'claim': 're-asks the cap', 'tokens': T('cap'), 'topic': ['cap', 'caps', 'capped'], 'settled': str(P['cap_new'])},
+                                                  {'claim': 're-asks the floor', 'tokens': T('floor'), 'topic': ['floor', 'floors'], 'settled': str(P['floor_new'])}]}})
         # 24 question critic (multi-label truth allowed)
         qs = {'c0': (f"You said on 22 Sep that SIG_X is capped at {P['cap_new']}. Should the cap be {P['cap_new']} or {P['cap_old']}?", ['REASKS_SETTLED']),
               'c1': ("What about the thing?", ['NO_CONTEXT']),
