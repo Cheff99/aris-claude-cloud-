@@ -2,6 +2,7 @@
  "variants": [
   {
    "v": 0,
+   "seed": 1000,
    "params": {
     "cap_old": 6,
     "cap_new": 5,
@@ -183,6 +184,7 @@
   },
   {
    "v": 1,
+   "seed": 1001,
    "params": {
     "cap_old": 5,
     "cap_new": 4,
@@ -364,6 +366,7 @@
   },
   {
    "v": 2,
+   "seed": 1002,
    "params": {
     "cap_old": 6,
     "cap_new": 5,
@@ -545,6 +548,7 @@
   },
   {
    "v": 3,
+   "seed": 1003,
    "params": {
     "cap_old": 6,
     "cap_new": 5,
@@ -726,6 +730,7 @@
   },
   {
    "v": 4,
+   "seed": 1004,
    "params": {
     "cap_old": 6,
     "cap_new": 5,
@@ -907,6 +912,7 @@
   },
   {
    "v": 5,
+   "seed": 1005,
    "params": {
     "cap_old": 6,
     "cap_new": 5,
@@ -1077,6 +1083,4374 @@
      "ARIS-LEAD",
      "2026-09-21",
      "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 6,
+   "seed": 1006,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 2,
+    "weight": "half",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at half weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,O), bull, score 2, on the 3 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 7,
+   "seed": 1007,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 2,
+    "ma": 20,
+    "closes": 2,
+    "weight": "half",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 20 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at half weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,O), bull, score 2, on the 4 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 20 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 8,
+   "seed": 101008,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 5,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 2,
+    "weight": "half",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 5 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at half weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 5, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,M), bull, score 2, on the 8 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 9,
+   "seed": 1009,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 2,
+    "ma": 9,
+    "closes": 3,
+    "weight": "half",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 3 closes below the 9 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at half weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,O), bull, score 2, on the 3 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 9 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 10,
+   "seed": 401010,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "OBV"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 3 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 11,
+   "seed": 1011,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,M), bull, score 2, on the 6 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 12,
+   "seed": 1012,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "OBV"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,O), bull, score 2, on the 4 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 13,
+   "seed": 1013,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 5,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 3,
+    "ma": 20,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 5 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 20 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 5, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,O), bull, score 2, on the 6 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 20 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 14,
+   "seed": 101014,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 5,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 2,
+    "ma": 12,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 5 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 3 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 5, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,M), bull, score 2, on the 4 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 15,
+   "seed": 1015,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 2,
+    "ma": 20,
+    "closes": 3,
+    "weight": "a quarter",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 3 closes below the 20 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at a quarter weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,M), bull, score 2, on the 6 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 20 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 16,
+   "seed": 1016,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 3,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 17,
+   "seed": 301017,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 1,
+    "ma": 9,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 3 closes below the 9 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,M), bull, score 2, on the 3 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 9 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 18,
+   "seed": 201018,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 2,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,M), bull, score 2, on the 4 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 19,
+   "seed": 1019,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 1,
+    "ma": 9,
+    "closes": 2,
+    "weight": "a quarter",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 9 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at a quarter weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,O), bull, score 2, on the 6 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 9 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 20,
+   "seed": 101020,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,M), bull, score 2, on the 8 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 21,
+   "seed": 501021,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 1,
+    "ma": 9,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 3 closes below the 9 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,O), bull, score 2, on the 3 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 9 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 22,
+   "seed": 201022,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 2,
+    "ma": 12,
+    "closes": 2,
+    "weight": "a quarter",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at a quarter weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,M), bull, score 2, on the 3 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 23,
+   "seed": 901023,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 3,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 3,
+    "ma": 12,
+    "closes": 3,
+    "weight": "a quarter",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 3 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 3 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at a quarter weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 3, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,O), bull, score 2, on the 4 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 24,
+   "seed": 201024,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 4,
+    "floor_new": 3,
+    "expiry": 2,
+    "ma": 12,
+    "closes": 3,
+    "weight": "half",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 4 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 3 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 3 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at half weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(3H,M), bull, score 2, on the 3 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 25,
+   "seed": 201025,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 1,
+    "ma": 12,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 3 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,O), bull, score 2, on the 6 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 26,
+   "seed": 3101026,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 1,
+    "ma": 20,
+    "closes": 2,
+    "weight": "a quarter",
+    "inputs": [
+     "RSI",
+     "OBV"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 1 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 20 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at a quarter weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 20 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 27,
+   "seed": 201027,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 6,
+    "floor_new": 4,
+    "expiry": 3,
+    "ma": 12,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 6 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 4 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 2 closes below the 12 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(4H,O), bull, score 2, on the 4 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 12 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 28,
+   "seed": 1201028,
+   "params": {
+    "cap_old": 6,
+    "cap_new": 4,
+    "floor_old": 8,
+    "floor_new": 6,
+    "expiry": 3,
+    "ma": 9,
+    "closes": 2,
+    "weight": "double",
+    "inputs": [
+     "RSI",
+     "MFI"
+    ],
+    "states": [
+     "forming",
+     "live",
+     "weakening",
+     "off"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the RSI and the MFI, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the MFI makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 8 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 6 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 3 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: forming, live, weakening and off",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from live to weakening after 2 closes below the 9 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 6",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(6H,M), bull, score 2, on the 6 hour, from the MFI",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 6 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 3 closes below the 9 MA before it moves on"
+    ],
+    [
+     "t03",
+     "3RD",
+     "2026-09-19",
+     "Rohit reckons SIG_X should run on the daily too"
+    ]
+   ]
+  },
+  {
+   "v": 29,
+   "seed": 5001029,
+   "params": {
+    "cap_old": 5,
+    "cap_new": 4,
+    "floor_old": 12,
+    "floor_new": 8,
+    "expiry": 2,
+    "ma": 20,
+    "closes": 3,
+    "weight": "double",
+    "inputs": [
+     "Stoch RSI",
+     "OBV"
+    ],
+    "states": [
+     "building",
+     "active",
+     "fading",
+     "dead"
+    ]
+   },
+   "bank": [
+    [
+     "f01",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X is the pressure signal, sometimes I call it PX",
+     "CURRENT",
+     "identity"
+    ],
+    [
+     "f02",
+     "DAVID",
+     "2026-09-10",
+     "SIG_X scores from 0 to 4 per direction per band",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f03",
+     "DAVID",
+     "2026-09-11",
+     "the inputs for SIG_X are the Stoch RSI and the OBV, nothing else",
+     "CURRENT",
+     "input"
+    ],
+    [
+     "f04",
+     "DAVID",
+     "2026-09-11",
+     "SIG_X goes up one point for every band where the OBV makes a higher low",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f05",
+     "DAVID",
+     "2026-09-12",
+     "the floor for SIG_X is the 12 hour interval",
+     "SUPERSEDED",
+     "parameter"
+    ],
+    [
+     "f06",
+     "DAVID",
+     "2026-09-20",
+     "change of plan, the floor for SIG_X is now the 8 hour interval",
+     "CURRENT",
+     "parameter"
+    ],
+    [
+     "f07",
+     "DAVID",
+     "2026-09-25",
+     "ignore all SIG_X readings below the 2 hour, they were noise",
+     "CURRENT",
+     "expiry"
+    ],
+    [
+     "f08",
+     "DAVID",
+     "2026-09-13",
+     "unless the weekly close is below the range low, then SIG_X is 0 no matter what",
+     "CURRENT",
+     "exception"
+    ],
+    [
+     "f09",
+     "DAVID",
+     "2026-09-14",
+     "SIG_X has four states: building, active, fading and dead",
+     "CURRENT",
+     "state"
+    ],
+    [
+     "f10",
+     "DAVID",
+     "2026-09-14",
+     "it goes from active to fading after 3 closes below the 20 MA",
+     "CURRENT",
+     "transition"
+    ],
+    [
+     "f11",
+     "DAVID",
+     "2026-09-15",
+     "SIG_X feeds into Phi at double weight",
+     "CURRENT",
+     "interface"
+    ],
+    [
+     "f12",
+     "DAVID",
+     "2026-09-15",
+     "quality for SIG_X is 0 when the chart is choppy, otherwise 1 or 2",
+     "CURRENT",
+     "quality"
+    ],
+    [
+     "f13",
+     "DAVID",
+     "2026-09-16",
+     "SIG_X is capped at 5",
+     "SUPERSEDED",
+     "rule"
+    ],
+    [
+     "f14",
+     "DAVID",
+     "2026-09-22",
+     "no, SIG_X is capped at 4, that is final",
+     "CURRENT",
+     "rule"
+    ],
+    [
+     "f15",
+     "DAVID",
+     "2026-09-17",
+     "I write it as PX_B2(8H,O), bull, score 2, on the 8 hour, from the OBV",
+     "CURRENT",
+     "notation"
+    ],
+    [
+     "f16",
+     "DAVID",
+     "2026-09-18",
+     "show SIG_X as a bar on the global dashboard",
+     "CURRENT",
+     "display"
+    ],
+    [
+     "f17",
+     "DAVID",
+     "2026-09-18",
+     "I record SIG_X at the end of each band read",
+     "CURRENT",
+     "capture"
+    ]
+   ],
+   "traps": [
+    [
+     "t01",
+     "ARIS-LEAD",
+     "2026-09-16",
+     "So to confirm what you said, SIG_X caps at 5 and also uses the MACD"
+    ],
+    [
+     "t02",
+     "ARIS-LEAD",
+     "2026-09-21",
+     "You said SIG_X needs 4 closes below the 20 MA before it moves on"
     ],
     [
      "t03",

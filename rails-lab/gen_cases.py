@@ -12,7 +12,11 @@ import os, json, random
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'cases', 'synthetic')
 os.makedirs(OUT, exist_ok=True)
-N_VARIANTS = 6
+CASES_PER_ROLE = {r: 30 if r in (9, 10, 11, 12, 13, 14, 15, 16, 21, 23) else 6 for r in range(1, 26)}
+N_VARIANTS = max(CASES_PER_ROLE.values())   # variant v feeds only the roles with more than v cases
+# a new variant whose answer repeats an earlier case of one of these roles is re-drawn. Roles 10, 16 and 23 are left out:
+# their answers barely depend on the drawn values (3, 2 and 1 possible answers), so re-drawing cannot make them unique.
+UNIQUE_ROLES = (9, 11, 12, 13, 14, 15, 21)
 
 # ---------- fully synthetic filler: trading-desk chatter with no module vocabulary ----------
 FILL_A = ["Morning, quick one before the call.", "Charts are loading slowly again today.", "I moved the screenshots into the weekly folder.",
@@ -39,8 +43,9 @@ def filler(rng, n):
 
 
 # ---------- the invented module, parameterised so every variant has different values ----------
-def make_variant(v):
-    rng = random.Random(1000 + v)
+def make_variant(v, attempt=0):
+    seed = 1000 + v + 100000 * attempt   # attempt 0 keeps the original seeds, so variants 0-5 are unchanged
+    rng = random.Random(seed)
     cap_old, cap_new = rng.choice([(5, 4), (6, 4), (5, 3), (6, 5)])
     floor_old, floor_new = rng.choice([(4, 3), (6, 4), (8, 6), (12, 8)])
     expiry = rng.choice([1, 2, 3])
@@ -77,7 +82,7 @@ def make_variant(v):
     ]
     p = dict(cap_old=cap_old, cap_new=cap_new, floor_old=floor_old, floor_new=floor_new, expiry=expiry, ma=ma, closes=closes,
              weight=weight, inputs=inputs, states=states)
-    return {'v': v, 'params': p, 'bank': bank, 'traps': traps}
+    return {'v': v, 'seed': seed, 'params': p, 'bank': bank, 'traps': traps}
 
 
 HDR = {'DAVID': 'David', 'ARIS-LEAD': 'Aris', '3RD': 'Rohit (forwarded)'}
@@ -96,9 +101,8 @@ def T(*toks):  # required tokens for a fact (numbers kept)
 
 
 def main():
-    cases = {r: [] for r in range(1, 26)}
-    variants = [make_variant(v) for v in range(N_VARIANTS)]
-    for V in variants:
+    def build(V):
+        cases = {r: [] for r in range(1, 26)}
         v, P, B, TR = V['v'], V['params'], V['bank'], V['traps']
         rng = random.Random(2000 + v)
         cid = lambda r: f"r{r:02d}-v{v}"
@@ -106,7 +110,7 @@ def main():
         allf = B + trapsf
         findings = '\n'.join(line(f) for f in allf)
         # 1 bulk reader: short and LONG documents (long-context weakness only shows on long inputs)
-        n_fill = [12, 40, 150, 300, 12, 450][v]   # up to ~100k characters: long-context weakness only shows on long inputs
+        n_fill = [12, 40, 150, 300, 12, 450][v % 6]   # up to ~100k characters: long-context weakness only shows on long inputs
         sub = rng.sample(B, 8) + rng.sample(trapsf, 2)
         cases[1].append({'case_id': cid(1), 'role': 1, 'input': {'module': 'SIG_X', 'text': build_doc(rng, sub, n_fill)},
                          'truth': {'items': [f[3] for f in sub if f[1] == 'DAVID'], 'verbatim_required': True}})
@@ -249,6 +253,26 @@ def main():
                           'truth': {'facts': [{'prop': 'the daily band now scores like the other bands (no longer OPEN)', 'tokens': T('daily')},
                                               {'prop': 'quality 2 = clean closes, quality 1 = one wick through', 'tokens': T('wick')},
                                               {'prop': f"the cap stays at {P['cap_new']}", 'tokens': T(P['cap_new'])}], 'council_only': True}})
+        return {r: cs[0] for r, cs in cases.items()}
+
+    cases, variants = {r: [] for r in range(1, 26)}, []
+    seen = {r: set() for r in UNIQUE_ROLES}
+    for v in range(N_VARIANTS):
+        for attempt in range(1000):
+            V = make_variant(v, attempt)
+            built = build(V)
+            keys = {r: json.dumps(built[r]['truth'], sort_keys=True) for r in UNIQUE_ROLES if v < CASES_PER_ROLE[r]}
+            if all(k not in seen[r] for r, k in keys.items()):
+                break
+        else:
+            raise SystemExit(f'variant {v}: no draw with unique answers after 1000 attempts')
+        for r, k in keys.items():
+            seen[r].add(k)
+        variants.append(V)
+        for r, c in built.items():
+            cases[r].append(c)
+    for r in cases:
+        cases[r] = cases[r][:CASES_PER_ROLE[r]]
     for r, cs in cases.items():
         with open(os.path.join(OUT, f'{r:02d}.jsonl'), 'w', encoding='utf-8') as fh:
             for c in cs:
