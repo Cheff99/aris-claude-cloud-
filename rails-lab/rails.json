@@ -1,0 +1,322 @@
+[
+ {
+  "id": 1,
+  "group": "A Reading",
+  "name": "Bulk reader",
+  "scorer": "set_match",
+  "task": "Extract EVERY statement in the text that matters for the module named in the case, including superseded, AI-paraphrased and third-party statements. Copy each quote word for word from a single message; never merge or reword.",
+  "out": "list of {\"quote\": <exact text>, \"facet\": <short tag>}",
+  "metrics": [
+   "recall",
+   "precision",
+   "verbatim_rate"
+  ]
+ },
+ {
+  "id": 2,
+  "group": "A Reading",
+  "name": "Speaker identifier",
+  "scorer": "label_match",
+  "task": "For each item id, say who actually said that sentence in the text: DAVID, ARIS-LEAD (any AI, even when it repeats or paraphrases David) or 3RD (another person, including forwarded messages). Use only the labels allowed.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy",
+   "trap_accuracy"
+  ]
+ },
+ {
+  "id": 3,
+  "group": "A Reading",
+  "name": "Dictation decoder",
+  "scorer": "label_match",
+  "task": "Each item is a dictation-garbled sentence. Give the one term from terms_allowed that the garbled words stand for.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 4,
+  "group": "A Reading",
+  "name": "Date and recency tagger",
+  "scorer": "label_match",
+  "task": "For each item id, label it CURRENT, SUPERSEDED (a later dated statement replaces it) or EXPIRED (a later statement says it no longer applies). Judge by the message dates in the text, not by the order of the lines.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy",
+   "trap_accuracy"
+  ]
+ },
+ {
+  "id": 5,
+  "group": "A Reading",
+  "name": "Notation parser",
+  "scorer": "label_match",
+  "task": "Decode each notation code into its parts using the key given, in the answer_format shown.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 6,
+  "group": "A Reading",
+  "name": "Repairer",
+  "scorer": "set_match",
+  "task": "Each finding was rejected because its quote is not word for word in the passage. For each, output the matching quote copied exactly from the passage; leave the finding out if its point is not in the passage.",
+  "out": "list of {\"quote\": <exact text>}",
+  "metrics": [
+   "recall",
+   "precision",
+   "verbatim_rate"
+  ]
+ },
+ {
+  "id": 7,
+  "group": "B Organising",
+  "name": "Module tagger",
+  "scorer": "label_match",
+  "task": "For each item id, list every module the sentence touches, from modules_allowed, joined with +.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 8,
+  "group": "B Organising",
+  "name": "Duplicate spotter",
+  "scorer": "label_match",
+  "task": "For each pair of statements say SAME (the same point) or DIFFERENT.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy",
+   "trap_accuracy"
+  ]
+ },
+ {
+  "id": 9,
+  "group": "B Organising",
+  "name": "Contradiction finder",
+  "scorer": "conflict_match",
+  "task": "List every pair of statements that conflict, and which one governs: the newest dated statement wins; an AI paraphrase never governs over David's own words; a sentence that only lists values describes a conflict, it does not settle it.",
+  "out": "list of {\"quotes\": [<quote a>, <quote b>], \"governs\": <the governing quote>}",
+  "metrics": [
+   "recall",
+   "precision",
+   "governs_right"
+  ]
+ },
+ {
+  "id": 10,
+  "group": "B Organising",
+  "name": "Exception spotter",
+  "scorer": "set_match",
+  "task": "List every statement that is an exception or condition to a rule (unless / except / only when / override).",
+  "out": "list of {\"quote\": <exact text>}",
+  "metrics": [
+   "recall",
+   "precision"
+  ]
+ },
+ {
+  "id": 11,
+  "group": "C Defining",
+  "name": "Rule writer",
+  "scorer": "fact_check",
+  "task": "Write the module's rules from these findings, facet by facet, newest dated statement governing, contradictions kept open, no number that is not in a quote.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "headline_right",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 12,
+  "group": "C Defining",
+  "name": "Decision-table builder",
+  "scorer": "fact_check",
+  "task": "Build a decision table: every input combination gets exactly one output; mark any combination the findings do not decide as OPEN.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "headline_right",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 13,
+  "group": "C Defining",
+  "name": "State and lifecycle modeller",
+  "scorer": "fact_check",
+  "task": "List the module's states and every transition between them with its trigger.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 14,
+  "group": "C Defining",
+  "name": "Interface mapper",
+  "scorer": "fact_check",
+  "task": "List what the module takes in from other modules and what it gives out, with the other module named.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 15,
+  "group": "C Defining",
+  "name": "Glossary keeper",
+  "scorer": "fact_check",
+  "task": "Write a glossary of the module's terms in David's own words; mark any term not used by David as PROPOSED.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 16,
+  "group": "D Looping",
+  "name": "Gap finder",
+  "scorer": "fact_check",
+  "task": "From the text, list what the module must define (rules, transitions, values) but the text never states. One gap per line, in plain words.",
+  "out": "text, one gap per line",
+  "metrics": [
+   "facts_kept",
+   "also_ok_kept"
+  ]
+ },
+ {
+  "id": 17,
+  "group": "D Looping",
+  "name": "Search planner",
+  "scorer": "fact_check",
+  "task": "For each gap, write the searches (words and meanings) most likely to find where the answer is written.",
+  "out": "text",
+  "metrics": [
+   "council_kept"
+  ]
+ },
+ {
+  "id": 18,
+  "group": "D Looping",
+  "name": "Saturation judge",
+  "scorer": "label_match",
+  "task": "For each new batch of findings, say NEW (adds a point not already known) or KNOWN.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 19,
+  "group": "E Checking",
+  "name": "Quote and speaker verifier",
+  "scorer": "mechanical",
+  "task": "pin.py: quote word for word at its path, speaker read from the source.",
+  "out": "pass/fail per item",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 20,
+  "group": "E Checking",
+  "name": "Faithfulness judge",
+  "scorer": "label_match",
+  "task": "For each (quote, claim) pair say SUPPORTED if the quote supports the claim, else UNSUPPORTED.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy",
+   "trap_accuracy"
+  ]
+ },
+ {
+  "id": 21,
+  "group": "E Checking",
+  "name": "Spec reviewer",
+  "scorer": "fact_check",
+  "task": "Compare the rules with the findings and list every error or omission in the rules, one per line, saying what the findings support instead.",
+  "out": "text, one problem per line",
+  "metrics": [
+   "facts_kept",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 22,
+  "group": "E Checking",
+  "name": "Number checker",
+  "scorer": "mechanical",
+  "task": "Every number in the rules must appear in a cited quote (mechanical first pass, logged).",
+  "out": "pass/fail per number",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 23,
+  "group": "F Questions",
+  "name": "Question writer",
+  "scorer": "fact_check",
+  "task": "Write round-1 questions for David: context first in his words, a real situation, one decision each, a recommended answer, and settle as many open issues per question as possible. Never re-ask a settled point.",
+  "out": "text",
+  "metrics": [
+   "facts_kept",
+   "forbidden_present",
+   "invented_numbers"
+  ]
+ },
+ {
+  "id": 24,
+  "group": "F Questions",
+  "name": "Question critic",
+  "scorer": "label_match",
+  "task": "For each question say GOOD or name the fault: REASKS_SETTLED, NO_CONTEXT, JARGON, MANY_DECISIONS, NO_RECOMMENDATION.",
+  "out": "list of {item_id, label}",
+  "metrics": [
+   "accuracy"
+  ]
+ },
+ {
+  "id": 25,
+  "group": "F Questions",
+  "name": "Answer integrator",
+  "scorer": "fact_check",
+  "task": "Fold David's answers into the rules and write follow-up questions only where an answer opens something new.",
+  "out": "text",
+  "metrics": [
+   "council_kept"
+  ]
+ },
+ {
+  "id": 26,
+  "group": "G Not screened",
+  "name": "Orchestrator",
+  "scorer": "none",
+  "task": "Runs the pipeline (Claude Code). Logged for reliability, not screened.",
+  "out": "-",
+  "metrics": []
+ },
+ {
+  "id": 27,
+  "group": "G Not screened",
+  "name": "Report writer",
+  "scorer": "none",
+  "task": "Plain-language write-ups for David. Judged by his reactions.",
+  "out": "-",
+  "metrics": []
+ }
+]
