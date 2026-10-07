@@ -17,9 +17,9 @@ N_VARIANTS = max(CASES_PER_ROLE.values())   # variant v feeds only the roles wit
 # a new variant whose answer repeats an earlier case of one of these roles is re-drawn. Roles 10, 16 and 23 are left out:
 # their answers barely depend on the drawn values (3, 2 and 1 possible answers), so re-drawing cannot make them unique.
 UNIQUE_ROLES = (9, 10, 11, 12, 13, 14, 15, 16, 21, 23)
-N_ORIGINAL = 6   # variants 0-5 are the original cases and stay as they were (roles 10, 16 and 23 repeat answers among them)
+N_ORIGINAL = 6   # variants 0-5 keep their original values; only their extra statements (below) may be re-drawn
 
-# Roles 10, 16 and 23 barely depend on the drawn values, so from variant 6 on each case also draws two statements of its own,
+# Roles 10, 16 and 23 barely depend on the drawn values, so each of their cases also draws two statements of its own,
 # inserted into its text: exceptions for role 10, and statements that leave something undefined (gaps) for roles 16 and 23.
 # Each entry is (statement, gap, gap tokens, options for {x}, options for {y}).
 EXCEPTIONS = [("SIG_X is halved unless funding is above {x} percent", None, None, ['0.05', '0.1', '0.2', '0.3'], None),
@@ -139,7 +139,7 @@ def T(*toks):  # required tokens for a fact (numbers kept)
 
 
 def main():
-    def build(V):
+    def build(V, extra=0):
         cases = {r: [] for r in range(1, 26)}
         v, P, B, TR = V['v'], V['params'], V['bank'], V['traps']
         rng = random.Random(2000 + v)
@@ -214,9 +214,9 @@ def main():
         cases[9].append({'case_id': cid(9), 'role': 9, 'input': {'text': findings, 'answer_format': 'list of {"quotes": [a, b], "governs": <quote>}'},
                          'truth': {'conflicts': conf}})
         # 10 exceptions / overrides
-        xr = random.Random(f"{V['seed']}-extra")   # own stream, so the draws above are unchanged
-        ex = [st for st, _ in draw(xr, EXCEPTIONS)] if v >= N_ORIGINAL else []
-        cases[10].append({'case_id': cid(10), 'role': 10, 'input': {'text': with_statements(xr, allf, ex) if ex else findings,
+        xr = random.Random(f"{V['seed']}-extra" + (f"-{extra}" if extra else ''))   # own stream, so the draws above are unchanged
+        ex = [st for st, _ in draw(xr, EXCEPTIONS)]
+        cases[10].append({'case_id': cid(10), 'role': 10, 'input': {'text': with_statements(xr, allf, ex),
                           'definition': 'statements that cancel or override a rule (unless / except / no matter what / ignore)'},
                           'truth': {'items': [B[7][3], B[6][3]] + ex, 'also_ok': [B[11][3]]}})
         # 11-15 defining: full propositions with required tokens; forbidden = superseded values and trap claims
@@ -245,12 +245,9 @@ def main():
                 {'prop': 'how quality 1 differs from quality 2 is never stated', 'tokens': T('quality', 1, 2)}]
         extra = [{'prop': f"what moves SIG_X from {P['states'][0]} to {P['states'][1]}", 'tokens': T(P['states'][0])},
                  {'prop': f"what moves it from {P['states'][2]} to {P['states'][3]}", 'tokens': T(P['states'][3])}]
-        if v < N_ORIGINAL:
-            cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': findings}, 'truth': {'facts': gaps, 'also_ok_facts': extra}})
-        else:  # the drawn gaps are required; the original gaps are still real gaps, so they count as extras
-            dg = draw(xr, GAPS)
-            cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in dg])},
-                              'truth': {'facts': [g for _, g in dg], 'also_ok_facts': gaps + extra}})
+        dg = draw(xr, GAPS)   # the drawn gaps are required; the fixed gaps are still real gaps, so they count as extras
+        cases[16].append({'case_id': cid(16), 'role': 16, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in dg])},
+                          'truth': {'facts': [g for _, g in dg], 'also_ok_facts': gaps + extra}})
         # 17 search planner: judged by the council (searches must go beyond echoing the gap)
         cases[17].append({'case_id': cid(17), 'role': 17, 'input': {'gaps': [x['prop'] for x in gaps]},
                           'truth': {'facts': [{'prop': 'searches for the daily timeframe using other words (1D, day chart, daily close)', 'tokens': T('1d')},
@@ -283,10 +280,10 @@ def main():
         cases[22].append({'case_id': cid(22), 'role': 22, 'input': {'findings': findings, 'rules': rules + ["SIG_X uses a 14 period RSI."]},
                           'truth': {'flag': ["SIG_X uses a 14 period RSI."]}})
         # 23 question writer: must ask the open issues; must NOT re-ask settled points
-        qg = draw(xr, GAPS) if v >= N_ORIGINAL else []   # drawn apart from role 16's, so the two roles do not share topics
-        cases[23].append({'case_id': cid(23), 'role': 23, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in qg]) if qg else findings,
+        qg = draw(xr, GAPS)   # drawn apart from role 16's, so the two roles do not share topics
+        cases[23].append({'case_id': cid(23), 'role': 23, 'input': {'module': 'SIG_X', 'text': with_statements(xr, allf, [st for st, _ in qg]),
                           'settled': [B[13][3], B[5][3]]},
-                          'truth': {'facts': [g for _, g in qg] or gaps, 'headline': (qg[0][1] if qg else gaps[0])['prop'],
+                          'truth': {'facts': [g for _, g in qg], 'headline': qg[0][1]['prop'],
                                     'forbidden': [{'claim': 're-asks the cap', 'tokens': T('cap')}, {'claim': 're-asks the floor', 'tokens': T('floor')}]}})
         # 24 question critic (multi-label truth allowed)
         qs = {'c0': (f"You said on 22 Sep that SIG_X is capped at {P['cap_new']}. Should the cap be {P['cap_new']} or {P['cap_old']}?", ['REASKS_SETTLED']),
@@ -307,10 +304,13 @@ def main():
     seen = {r: set() for r in UNIQUE_ROLES}
     for v in range(N_VARIANTS):
         for attempt in range(1000):
-            V = make_variant(v, attempt)
-            built = build(V)
+            # an original variant keeps its values and re-draws only its extra statements; a new one re-draws everything
+            orig = v < N_ORIGINAL
+            V = make_variant(v, 0 if orig else attempt)
+            V['extra'] = attempt if orig else 0
+            built = build(V, V['extra'])
             keys = {r: json.dumps(built[r]['truth'], sort_keys=True) for r in UNIQUE_ROLES if v < CASES_PER_ROLE[r]}
-            if v < N_ORIGINAL or all(k not in seen[r] for r, k in keys.items()):
+            if all(k not in seen[r] for r, k in keys.items()):
                 break
         else:
             raise SystemExit(f'variant {v}: no draw with unique answers after 1000 attempts')
